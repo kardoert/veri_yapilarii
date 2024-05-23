@@ -1,0 +1,36 @@
+BOBLE SORT  21.03.2024
+#include <iostream>
+using namespace std;
+
+void bublesort(int arr[], int n) //kabarcık sıralama
+{
+	for (int i = 0; i < n - 1; i++) 
+	{
+		for (int j = i + 1; j < n; j++) 
+		{
+			if (arr[i] > arr[j]) 
+			{
+				int temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+int main()
+{
+	int arr[] = {12,45,78,16,98,36};
+	int n = sizeof(arr) / sizeof(arr[0]);//dizinin elemen sayısı
+	cout << "Siralanmamis hali"<<endl;
+	for (int i = 0; i < n; i++) 
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl << endl;
+    
+	bublesort(arr, n);
+	cout << "Siralanmis dizi"<<endl;
+	for (int i = 0; i < n; i++) {
+		cout << arr[i] << " ";
+	}
+}
