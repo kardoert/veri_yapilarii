@@ -1,0 +1,122 @@
+#include <iostream>
+using namespace std;
+const int MAX = 10;
+class Heap 
+{
+public:
+    Heap();
+    int SolCocukGetir(int i);
+    int SagCocukGetir(int i);
+    int EbevynGetir(int i);
+    bool ekle(int e);
+    bool getir(int& e);
+    bool heapOlustur(int a[], int es);
+    void yazdır();
+private:
+    int veri[MAX];
+    int ES;
+    void HeapİfyUp(int i);
+    void HeapİfyDown(int i);
+
+};
+Heap::Heap() 
+{
+    ES = 0;
+}
+int Heap::SolCocukGetir(int i) 
+{
+    return 2 * i + 1;
+}
+
+int Heap::SagCocukGetir(int i)
+{
+    return 2 * i + 2;
+}
+
+int Heap::EbevynGetir(int i)
+{
+    return (i - 1) / 2;
+}
+
+bool Heap::ekle(int e)
+{
+    if (ES == MAX)
+        return false;
+    ES++;//eleman sayısı demek
+    veri[ES - 1] = e;
+    HeapİfyUp(ES - 1);
+    return true;
+}
+void Heap::HeapİfyUp(int i)
+{
+    if (i == 0)
+        return;
+
+  int eb = EbevynGetir(i);
+
+    if (veri[eb] > veri[i])
+    {
+        int temp = veri[i];
+        veri[i] = veri[eb];
+        veri[eb] = temp;
+        HeapİfyUp(eb);//fonksiyon kendini tekrar çağırdı.
+    }
+}
+bool Heap::getir(int& e)//çıkar
+{
+    if (ES == 0)
+        return false;
+    e = veri[0];
+    veri[0] = veri[ES - 1];
+    ES--;
+    HeapİfyDown(0);
+}
+void Heap::HeapİfyDown(int i)
+{
+    int Sol = SolCocukGetir(i);
+    int Sag = SagCocukGetir(i);
+    int min;
+    if (Sag >= ES) {
+        if (Sol >= ES)
+            return;
+        else
+            min = Sol;
+    }
+    else 
+    {
+        if (veri[Sol] < veri[Sag])
+            min = Sol;
+        else 
+            min = Sag;
+    }
+    if (veri[min] < veri[i])
+    {
+        int temp = veri[i];
+        veri[i] = veri[min];
+        veri[min] = temp;
+        HeapİfyDown(min);
+    }
+}
+void Heap::yazdır()
+{
+    for (int i = 0; i < ES; i++)
+        cout << veri[i] << " ";
+    cout << endl;
+}
+
+int main()
+{
+    Heap heap;
+    heap.ekle(5);
+    heap.ekle(3);
+    heap.ekle(7);
+    heap.ekle(8);
+    heap.ekle(2);
+    heap.yazdır();
+
+    int e;
+    heap.getir(e);//getirle 2 yi çıkarttık 
+    heap.yazdır();
+    return 0;
+    
+}
